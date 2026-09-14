@@ -1,0 +1,113 @@
+{{ define "two-factor-method-settings" }}
+<div
+    id="twoFactorSettings"
+    class="mt-5"
+    data-two-factor-active="{{ .TwoFactorActive }}"
+    data-two-factor-enabled="{{ .TwoFactorEnabled }}"
+    data-two-factor-method="{{ .TwoFactorMethod }}"
+    data-two-factor-target-method="{{ .SelectedTwoFactorMethod }}"
+>
+    <div
+        id="twoFactorSettingsPanel"
+        class="rounded-2xl border border-slate-200/90 bg-slate-50/80 p-4 dark:border-white/10 dark:bg-slate-950/40 sm:p-5"
+    >
+        <div class="grid gap-3 lg:grid-cols-[minmax(13rem,0.75fr)_minmax(0,1.25fr)] lg:items-stretch">
+            <div class="min-w-0 rounded-xl border border-slate-200/90 bg-white/80 p-4 dark:border-white/10 dark:bg-slate-950/50">
+                <p class="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500 dark:text-slate-400">Status atual</p>
+                <p id="twoFactorCurrentStatus" class="mt-1 text-sm font-semibold text-slate-900 dark:text-white">{{ .TwoFactorStatus }}</p>
+                <p class="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+                    Conta: <span class="break-words">{{ .Email }}</span>
+                </p>
+            </div>
+            <div class="min-w-0 rounded-xl border border-emerald-200/90 bg-emerald-50/80 p-4 text-sm text-emerald-950 dark:border-emerald-900/50 dark:bg-emerald-950/25 dark:text-emerald-100">
+                <p class="font-semibold">{{ .SelectedTwoFactorMethodTitle }}</p>
+                <p class="mt-1 leading-relaxed">{{ .SelectedTwoFactorMethodDescription }}</p>
+            </div>
+        </div>
+
+        <div id="twoFactorRecoveryCodes" class="mt-4 hidden rounded-xl border border-amber-200/90 bg-amber-50/90 p-4 text-sm text-amber-950 dark:border-amber-900/50 dark:bg-amber-950/25 dark:text-amber-100">
+            <div class="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                    <p class="font-semibold">Códigos de recuperação</p>
+                    <p class="mt-1 leading-relaxed">Guarde estes códigos agora. Eles não serão exibidos novamente.</p>
+                </div>
+                <button
+                    type="button"
+                    id="twoFactorCopyRecoveryCodes"
+                    class="qn-app-modal__btn qn-app-modal__btn--secondary"
+                >
+                    Copiar
+                </button>
+            </div>
+            <ul id="twoFactorRecoveryCodeList" class="mt-4 grid gap-2 sm:grid-cols-2"></ul>
+        </div>
+
+        <div id="twoFactorSetupControls" class="mt-5 space-y-5">
+            {{ if eq .SelectedTwoFactorMethod "totp" }}
+            <div id="twoFactorTOTPApps" class="hidden rounded-xl border border-slate-200/90 bg-white/80 p-4 dark:border-white/10 dark:bg-slate-950/50">
+                <p class="text-sm font-medium text-slate-800 dark:text-slate-200">Aplicativos compatíveis</p>
+                <ul class="mt-2 grid gap-1.5 text-sm text-slate-600 dark:text-slate-300 sm:grid-cols-2">
+                    <li>Google Authenticator</li>
+                    <li>Microsoft Authenticator</li>
+                    <li>Authy</li>
+                    <li>1Password</li>
+                    <li>Bitwarden</li>
+                    <li>FreeOTP</li>
+                    <li>Outro aplicativo TOTP/otpauth</li>
+                </ul>
+            </div>
+            {{ end }}
+
+            <div id="twoFactorVerificationArea" class="hidden space-y-4">
+                {{ if eq .SelectedTwoFactorMethod "totp" }}
+                <div id="twoFactorQRCodeWrap" class="hidden rounded-xl border border-slate-200/90 bg-white p-4 text-center dark:border-white/10 dark:bg-slate-950/50">
+                    <img id="twoFactorQRCode" src="" alt="QR Code para configurar aplicativo autenticador" class="mx-auto h-48 w-48 rounded-lg bg-white p-2">
+                    <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">Escaneie o QR Code no aplicativo autenticador.</p>
+                </div>
+
+                <div id="twoFactorManualSecretWrap" class="hidden">
+                    <label for="twoFactorManualSecret" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">Chave manual</label>
+                    <output id="twoFactorManualSecret" class="block w-full break-all rounded-xl border border-slate-200/90 bg-slate-50 px-3 py-2 font-mono text-sm text-slate-800 dark:border-white/10 dark:bg-slate-950/70 dark:text-slate-100"></output>
+                </div>
+                {{ end }}
+
+                <label class="block" for="twoFactorCode">
+                    <span class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">Código de verificação</span>
+                    <input
+                        type="text"
+                        id="twoFactorCode"
+                        name="two_factor_code"
+                        inputmode="numeric"
+                        autocomplete="one-time-code"
+                        maxlength="6"
+                        minlength="6"
+                        pattern="[0-9]{6}"
+                        class="w-full rounded-xl border border-slate-200/90 bg-white px-3 py-2.5 text-center font-mono text-lg tracking-[0.35em] text-slate-900 shadow-sm outline-none ring-sky-500/30 placeholder:text-slate-400 focus:border-sky-500/50 focus:ring-2 dark:border-white/10 dark:bg-slate-950/80 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-emerald-500/40 dark:focus:ring-emerald-500/25"
+                        placeholder="000000"
+                    />
+                    <span class="mt-2 block text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+                        A confirmação será enviada automaticamente ao preencher os 6 dígitos.
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap justify-end gap-2 pt-1">
+            <button
+                type="button"
+                id="twoFactorRegenerateRecoveryCodes"
+                class="qn-app-modal__btn qn-app-modal__btn--secondary hidden"
+            >
+                Gerar novos códigos
+            </button>
+            <button
+                type="button"
+                id="twoFactorPrimaryBtn"
+                class="qn-app-modal__btn qn-app-modal__btn--primary"
+            >
+                {{ .TwoFactorActionLabel }}
+            </button>
+        </div>
+    </div>
+</div>
+{{ end }}

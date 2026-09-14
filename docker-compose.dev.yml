@@ -1,0 +1,70 @@
+name: bridopen-dev
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_USER}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      - bridopen
+    ports:
+      - "5434:5432"
+  migrate:
+    image: migrate/migrate
+    networks:
+      - bridopen
+    volumes:
+      - ./db/migrations:/migrations
+    command: ["-path", "/migrations", "-database", "${BRIDOPEN_DB_CONN_URL}", "up"]
+    environment:
+      DB_USER: ${DB_USER}
+      PGPASSWORD: ${DB_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+  server:
+    image: bridopen-server:latest
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - bridopen
+    ports:
+      - "5000:5000"
+    environment:
+      BRIDOPEN_APP_ENV: "production"
+      BRIDOPEN_DB_CONN_URL: ${BRIDOPEN_DB_CONN_URL}
+      BRIDOPEN_SERVER_PORT: "5000"
+      BRIDOPEN_BASE_URL: ${BRIDOPEN_BASE_URL:-https://seu-dominio.com.br}
+      BRIDOPEN_MAIL_HOST: ${BRIDOPEN_MAIL_HOST}
+      BRIDOPEN_MAIL_PORT: ${BRIDOPEN_MAIL_PORT}
+      BRIDOPEN_MAIL_USERNAME: ${BRIDOPEN_MAIL_USERNAME}
+      BRIDOPEN_MAIL_PASSWORD: ${BRIDOPEN_MAIL_PASSWORD}
+      BRIDOPEN_MAIL_FROM: ${BRIDOPEN_MAIL_FROM}
+      BRIDOPEN_CSRF_KEY: ${BRIDOPEN_CSRF_KEY}
+      BRIDOPEN_MFA_SECRET_KEY: ${BRIDOPEN_MFA_SECRET_KEY}
+      BRIDOPEN_COOKIE_SECURE: "true"
+      BRIDOPEN_COOKIE_DOMAIN: ${BRIDOPEN_COOKIE_DOMAIN:-}
+      BRIDOPEN_TRUSTED_ORIGINS: ${BRIDOPEN_TRUSTED_ORIGINS:-seu-dominio.com.br,www.seu-dominio.com.br}
+  caddy:
+    image: caddy:alpine
+    networks:
+      - bridopen
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+networks:
+  bridopen:

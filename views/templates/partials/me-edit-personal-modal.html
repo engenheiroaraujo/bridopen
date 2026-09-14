@@ -1,0 +1,114 @@
+{{ define "me-edit-personal-modal" }}
+<div
+    id="editPersonalInfoModal"
+    class="qn-app-modal fixed inset-0 z-[1100] {{ if .OpenEditModal }}flex{{ else }}hidden{{ end }} items-center justify-center p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="editPersonalInfoModalTitle"
+    aria-hidden="{{ if .OpenEditModal }}false{{ else }}true{{ end }}"
+>
+    <div
+        class="qn-app-modal__backdrop absolute inset-0"
+        data-edit-personal-dismiss
+        aria-hidden="true"
+    ></div>
+    <div class="qn-app-modal__panel relative z-[1] w-full max-w-md p-6 sm:p-7">
+        <h2 id="editPersonalInfoModalTitle" class="text-lg font-semibold text-slate-900 dark:text-white">
+            Editar informações pessoais
+        </h2>
+        <form id="editPersonalInfoForm" class="mt-5 space-y-4" method="post" action="/me/personal">
+            {{csrfField}}
+            <input type="hidden" name="id" id="personal_info_id" value="{{ .PersonalInfoID }}">
+            {{ with .FieldErrors }}
+            <div class="rounded-xl border border-red-200/90 bg-red-50/90 p-3 text-sm text-red-900 dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-100" role="alert">
+                <ul class="mt-2 list-inside list-none space-y-0.5">
+                    {{ range $field, $msg := . }}
+                    <li>{{ $msg }}</li>
+                    {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+            <label class="block" for="first_name">
+                <span class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">Nome</span>
+                <input
+                    type="text"
+                    name="first_name"
+                    id="first_name"
+                    value="{{ .FirstName }}"
+                    maxlength="30"
+                    required
+                    autocomplete="given-name"
+                    autocapitalize="words"
+                    inputmode="text"
+                    data-personal-name-input
+                    spellcheck="false"
+                    class="w-full rounded-xl border border-slate-200/90 bg-white px-3 py-2 text-slate-900 shadow-sm outline-none ring-sky-500/30 placeholder:text-slate-400 focus:border-sky-500/50 focus:ring-2 dark:border-white/10 dark:bg-slate-950/80 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-emerald-500/40 dark:focus:ring-emerald-500/25{{ if index .FieldErrors "first_name" }} border-red-400 ring-red-400/30{{ end }}"
+                    placeholder="Seu primeiro nome"
+                    aria-invalid="{{ if index .FieldErrors "first_name" }}true{{ else }}false{{ end }}"
+                />
+                {{ with index .FieldErrors "first_name" }}
+                <p class="mt-1 text-xs text-red-600 dark:text-red-300">{{ . }}</p>
+                {{ end }}
+            </label>
+            <label class="block" for="last_name">
+                <span class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">Sobrenome</span>
+                <input
+                    type="text"
+                    name="last_name"
+                    id="last_name"
+                    value="{{ .LastName }}"
+                    maxlength="50"
+                    required
+                    autocomplete="family-name"
+                    autocapitalize="words"
+                    inputmode="text"
+                    data-personal-name-input
+                    spellcheck="false"
+                    class="w-full rounded-xl border border-slate-200/90 bg-white px-3 py-2 text-slate-900 shadow-sm outline-none ring-sky-500/30 placeholder:text-slate-400 focus:border-sky-500/50 focus:ring-2 dark:border-white/10 dark:bg-slate-950/80 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-emerald-500/40 dark:focus:ring-emerald-500/25{{ if index .FieldErrors "last_name" }} border-red-400 ring-red-400/30{{ end }}"
+                    placeholder="Seu sobrenome"
+                    aria-invalid="{{ if index .FieldErrors "last_name" }}true{{ else }}false{{ end }}"
+                />
+                {{ with index .FieldErrors "last_name" }}
+                <p class="mt-1 text-xs text-red-600 dark:text-red-300">{{ . }}</p>
+                {{ end }}
+            </label>
+            <label class="block" for="phone_number">
+                <span class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">Telefone <span class="font-normal text-slate-500 dark:text-slate-400">(opcional)</span></span>
+                <input
+                    type="tel"
+                    name="phone_number"
+                    id="phone_number"
+                    data-personal-phone-input
+                    value="{{ .Phone }}"
+                    maxlength="20"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    class="w-full rounded-xl border border-slate-200/90 bg-white px-3 py-2 text-slate-900 shadow-sm outline-none ring-sky-500/30 placeholder:text-slate-400 focus:border-sky-500/50 focus:ring-2 dark:border-white/10 dark:bg-slate-950/80 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-emerald-500/40 dark:focus:ring-emerald-500/25{{ if index .FieldErrors "phone_number" }} border-red-400 ring-red-400/30{{ end }}"
+                    placeholder="(00) 00000-0000"
+                    aria-invalid="{{ if index .FieldErrors "phone_number" }}true{{ else }}false{{ end }}"
+                />
+                {{ with index .FieldErrors "phone_number" }}
+                <p class="mt-1 text-xs text-red-600 dark:text-red-300">{{ . }}</p>
+                {{ end }}
+            </label>
+            <div class="qn-app-modal__actions mt-6 pt-1">
+                <button
+                    type="button"
+                    id="btnCancelEditPersonalInfo"
+                    class="qn-app-modal__btn qn-app-modal__btn--secondary"
+                    data-edit-personal-dismiss
+                >
+                    Cancelar
+                </button>
+                <button
+                    type="submit"
+                    id="btnSaveEditPersonalInfo"
+                    class="qn-app-modal__btn qn-app-modal__btn--primary"
+                >
+                    Salvar
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{{ end }}

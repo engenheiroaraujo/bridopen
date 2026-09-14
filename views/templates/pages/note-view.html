@@ -1,0 +1,83 @@
+{{ define "title" }}Nota {{ .Title }}{{ end }}
+
+{{ define "main" }}
+<section class="qn-note-workspace">
+    <div class="qn-note-shell">
+        <article class="qn-note-reader">
+            <header class="qn-note-reader__header">
+                <a href="{{ if .Deleted }}/notes/trash{{ else if .Archived }}/notes/archive{{ else }}/{{ end }}" class="qn-note-back">Voltar</a>
+                <div class="qn-note-reader__actions">
+                    {{ if .Deleted }}
+                    <form action="/note/{{ .Id }}/restore" method="post" class="contents">
+                        {{csrfField}}
+                        <input type="hidden" name="redirect" value="/note/{{ .Id }}">
+                        <button type="submit" class="qn-note-btn qn-note-btn--ghost">Restaurar</button>
+                    </form>
+                    <button
+                        type="button"
+                        class="qn-note-btn qn-note-btn--danger"
+                        data-note-delete-action
+                        data-note-delete-url="/note/{{ .Id }}/destroy"
+                        data-note-delete-redirect="/notes/trash"
+                        data-note-delete-title="Excluir definitivamente?"
+                        data-note-delete-message="Esta ação não pode ser desfeita. A nota será removida definitivamente."
+                        data-note-delete-confirm="Excluir definitivamente"
+                        data-note-delete-error="Não foi possível excluir a nota definitivamente. Tente novamente."
+                    >
+                        Excluir
+                    </button>
+                    {{ else }}
+                    <a href="/note/{{.Id}}/edit" class="qn-note-btn qn-note-btn--primary">Editar</a>
+                    {{ if .Archived }}
+                    <form action="/note/{{ .Id }}/unarchive" method="post" class="contents">
+                        {{csrfField}}
+                        <input type="hidden" name="redirect" value="/note/{{ .Id }}">
+                        <button type="submit" class="qn-note-btn qn-note-btn--ghost">Desarquivar</button>
+                    </form>
+                    {{ else }}
+                    <form action="/note/{{ .Id }}/{{ if .Pinned }}unpin{{ else }}pin{{ end }}" method="post" class="contents">
+                        {{csrfField}}
+                        <input type="hidden" name="redirect" value="/note/{{ .Id }}">
+                        <button type="submit" class="qn-note-btn qn-note-btn--ghost">{{ if .Pinned }}Desfixar{{ else }}Fixar{{ end }}</button>
+                    </form>
+                    <form action="/note/{{ .Id }}/archive" method="post" class="contents">
+                        {{csrfField}}
+                        <input type="hidden" name="redirect" value="/notes/archive">
+                        <button type="submit" class="qn-note-btn qn-note-btn--ghost">Arquivar</button>
+                    </form>
+                    {{ end }}
+                    <button
+                        type="button"
+                        class="qn-note-btn qn-note-btn--danger"
+                        data-note-delete-action
+                        data-note-delete-url="/note/{{ .Id }}"
+                        data-note-delete-redirect="{{ if .Archived }}/notes/archive{{ else }}/{{ end }}"
+                        data-note-delete-title="Mover para lixeira?"
+                        data-note-delete-message="A nota será movida para a lixeira."
+                        data-note-delete-confirm="Mover para lixeira"
+                        data-note-delete-error="Não foi possível mover a nota para a lixeira. Tente novamente."
+                    >
+                        Lixeira
+                    </button>
+                    {{ end }}
+                </div>
+            </header>
+
+            {{ if .Tags }}
+            <div class="qn-note-reader__tags">
+                {{ range .Tags }}
+                <a href="/?tag={{ .Slug }}">#{{ .Name }}</a>
+                {{ end }}
+            </div>
+            {{ end }}
+
+            <h1>{{ .Title }}</h1>
+            <div class="qn-note-reader__content">{{ .Content }}</div>
+        </article>
+
+        <aside class="qn-note-side">
+            {{ template "note-attachments" . }}
+        </aside>
+    </div>
+</section>
+{{ end }}

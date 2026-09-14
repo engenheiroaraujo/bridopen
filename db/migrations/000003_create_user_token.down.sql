@@ -1,0 +1,1 @@
+drop table if exists public.users_confirmation_tokens;

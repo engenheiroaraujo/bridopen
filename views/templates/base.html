@@ -1,0 +1,115 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Bridopen — anotações rápidas.">
+    <meta name="csrf-token" content="{{ csrfToken }}">
+    <script src="/static/js/core/theme-init.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/static/js/core/tailwind-config.js"></script>
+    <link rel="icon" type="image/svg+xml" href="/static/img/logo.svg">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>{{ template "title" . }} — Bridopen</title>
+</head>
+<body class="site-body font-sans antialiased [text-rendering:optimizeLegibility]{{ if isAuthenticated }} has-app-sidebar{{ end }}">
+    <a class="skip-link" href="#main-content">Ir para o conteúdo</a>
+
+    {{ if isAuthenticated }}
+        <div id="app-sidebar-backdrop" class="qn-sidebar-backdrop" aria-hidden="true" data-sidebar-close></div>
+        {{ template "app-sidebar" . }}
+        <div class="qn-topbar lg:hidden">
+            <button
+                type="button"
+                class="qn-topbar-toggle"
+                aria-controls="app-sidebar"
+                aria-expanded="false"
+                aria-label="Abrir menu"
+                data-sidebar-open
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <a href="/" class="container-name-text-titulo">
+                <p class="name-text-titulo">Brid<span class="name-text-titulo-second">note</span></p>
+            </a>
+        </div>
+    {{ end }}
+
+    <div class="qn-shell">
+        <main id="main-content" role="main" class="qn-shell-main" tabindex="-1">
+            {{ template "main" . }}
+        </main>
+
+        {{ template "site-footer" "" }}
+    </div>
+
+    <!-- Modais da página ficam fora do fluxo do shell: são sobreposições, e
+         aqui não empurram o rodapé. A navegação parcial troca este slot. -->
+    <div id="page-modals">{{ block "pageModals" .}}{{ end }}</div>
+
+    <div
+        id="note-delete-modal"
+        class="qn-app-modal fixed inset-0 z-[1100] hidden items-center justify-center p-4"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="note-delete-modal-title"
+        aria-describedby="note-delete-modal-desc"
+        aria-hidden="true"
+    >
+        <div
+            class="qn-app-modal__backdrop absolute inset-0"
+            data-note-delete-dismiss
+            aria-hidden="true"
+        ></div>
+        <div class="qn-app-modal__panel relative z-[1] w-full max-w-sm p-6">
+            <h2 id="note-delete-modal-title" class="text-lg font-semibold text-slate-900 dark:text-white">
+                Excluir anotação?
+            </h2>
+            <p id="note-delete-modal-desc" class="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                Esta ação não pode ser desfeita.
+            </p>
+            <div class="qn-app-modal__actions mt-6">
+                <button
+                    type="button"
+                    class="qn-app-modal__btn qn-app-modal__btn--secondary"
+                    data-note-delete-dismiss
+                    id="note-delete-cancel"
+                >
+                    Cancelar
+                </button>
+                <button
+                    type="button"
+                    class="qn-app-modal__btn qn-app-modal__btn--danger"
+                    id="note-delete-confirm"
+                    data-csrf-token="{{ csrfToken }}"
+                >
+                    Excluir
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/core/page-lifecycle.js?v=2"></script>
+    <script src="/static/js/core/toast.js?v=1"></script>
+    <script src="/static/js/notes/note-grid-colors.js"></script>
+    <script src="/static/js/notes/note-card-menu.js"></script>
+    <script src="/static/js/notes/note-delete-modal.js?v=6"></script>
+    <script src="/static/js/notes/note-color-picker.js"></script>
+    <script src="/static/js/notes/note-title-counter.js?v=1"></script>
+    <script src="/static/js/notes/note-search-page.js?v=1"></script>
+    <script src="/static/js/notes/note-tags-page.js?v=1"></script>
+    <script src="/static/js/account/edit-personal-info.js?v=5"></script>
+    <script src="/static/js/account/password-change-modal.js?v=2"></script>
+    <script src="/static/js/account/recovery-email-modal.js?v=1"></script>
+    <script src="/static/js/account/account-delete-modal.js?v=4"></script>
+    <script src="/static/js/account/two-factor-settings.js?v=9"></script>
+    <script src="/static/js/core/action-lock.js?v=2"></script>
+    <script src="/static/js/core/index.js?v=2"></script>
+    <script src="/static/js/core/sidebar.js?v=2"></script>
+    <script src="/static/js/core/partial-nav.js?v=3"></script>
+</body>
+</html>
+{{ end }}

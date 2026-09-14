@@ -1,0 +1,28 @@
+{{ define "title" }}Minha conta{{ end }}
+
+{{ define "main" }}
+<div class="qn-me-layout mx-auto w-full">
+    <div class="qn-me-grid">
+
+        <div class="qn-me-main min-w-0" data-account-focus-section="{{ .FocusSection }}">
+            <header class="mb-6 sm:mb-8">
+                <h1 class="mt-2 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-3xl">Visão geral</h1>
+                <p class="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                    Consulte seus dados pessoais e as configurações de acesso. A edição de dados sensíveis segue fluxos seguros do sistema.
+                </p>
+            </header>
+
+            {{ template "me-overview-sections" . }}
+        </div>
+    </div>
+</div>
+{{ end }}
+
+{{ define "pageModals" }}
+{{ template "me-toast-events" . }}
+{{ template "me-edit-personal-modal" . }}
+{{ template "me-password-modal" . }}
+{{ template "me-recovery-email-modal" . }}
+{{ template "me-account-delete-modal" . }}
+{{ end }}
+

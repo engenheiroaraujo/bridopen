@@ -1,0 +1,40 @@
+{{ define "note-tag-picker" }}
+<div class="qn-note-panel">
+    <div class="qn-note-panel__head">
+        <h2>Etiquetas</h2>
+    </div>
+    {{ with index .FieldErrors "tags" }}
+    <p class="qn-note-field-error">{{ . }}</p>
+    {{ end }}
+    <div
+        class="qn-note-tag-picker"
+        data-note-tag-picker
+    >
+        <div class="flex flex-wrap gap-2" data-note-tag-picker-list>
+            {{ range .AvailableTags }}
+            <label class="group cursor-pointer" data-note-tag-option="{{ .Id }}">
+                <input
+                    type="checkbox"
+                    name="tag_ids"
+                    value="{{ .Id }}"
+                    form="note-new-form"
+                    class="peer sr-only"
+                    {{ if .Selected }}checked{{ end }}
+                >
+                <span class="qn-note-tag-chip">
+                    {{ if .Color }}
+                    <span class="h-2.5 w-2.5 shrink-0 rounded-full border border-white/50" data-note-color="{{ .Color }}" aria-hidden="true"></span>
+                    {{ end }}
+                    <span class="truncate">#{{ .Name }}</span>
+                </span>
+            </label>
+            {{ end }}
+        </div>
+        <p class="qn-note-help" data-note-tag-empty {{ if .AvailableTags }}hidden{{ end }}>
+            Nenhuma etiqueta criada ainda.
+        </p>
+        <p class="qn-note-help">Selecione até 8 etiquetas por nota.</p>
+    </div>
+</div>
+{{ end }}
+

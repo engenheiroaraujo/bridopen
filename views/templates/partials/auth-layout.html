@@ -1,0 +1,95 @@
+{{ define "auth-shell-start" }}
+<div class="qn-auth-shell relative flex min-h-dvh flex-col lg:flex-row">
+    <div class="fixed right-4 top-4 z-50 sm:right-6 sm:top-6">
+        <button
+            type="button"
+            class="theme-toggle theme-toggle--bar"
+            data-theme-toggle
+            aria-pressed="false"
+            aria-label="Alternar tema"
+        >
+            <span data-theme-toggle-label>Tema</span>
+        </button>
+    </div>
+    <div class="qn-auth-form-column relative flex min-h-dvh flex-1 flex-col bg-slate-100 dark:bg-slate-950 lg:w-1/2">
+        <div class="flex flex-1 items-center justify-center px-4 py-10 sm:px-8">
+            <div class="qn-auth-card home-lift-card w-full max-w-[400px] rounded-2xl border border-slate-200/90 bg-white p-6 shadow-sm sm:p-8 dark:border-white/10 dark:bg-slate-900/70">
+{{ end }}
+
+{{ define "auth-field-errors" }}
+{{ with .Form.FieldErrors }}
+{{ $hasErrors := false }}
+{{ range $field, $msg := . }}{{ if ne $field "captcha" }}{{ $hasErrors = true }}{{ end }}{{ end }}
+{{ if $hasErrors }}
+<div
+    class="mb-4 rounded-xl border border-red-200/90 bg-red-50/90 px-4 py-3 dark:border-red-900/50 dark:bg-red-950/35"
+    role="alert"
+    aria-live="polite"
+>
+    <div class="space-y-1 text-sm leading-relaxed text-red-800 dark:text-red-200/95">
+        {{ range $field, $msg := . }}
+            {{ if ne $field "captcha" }}<p>{{ $msg }}</p>{{ end }}
+        {{ end }}
+    </div>
+</div>
+{{ end }}
+{{ end }}
+{{ end }}
+
+{{ define "auth-captcha" }}
+{{ if .Captcha.Enabled }}
+<div class="space-y-3" data-auth-captcha>
+    <label for="captcha_checked" class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200/90 bg-slate-50/70 px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100/80 dark:border-white/10 dark:bg-slate-950/50 dark:text-slate-300 dark:hover:bg-white/10">
+        <input
+            id="captcha_checked"
+            name="captcha_checked"
+            type="checkbox"
+            value="true"
+            class="h-4 w-4 rounded border-slate-300 text-[#2f4538] focus:ring-[#2f4538]/30 dark:border-white/20 dark:bg-slate-950 dark:focus:ring-emerald-500/30"
+            {{ if .Captcha.Open }}checked{{ end }}
+        >
+        <span>Não sou um robô</span>
+    </label>
+    <input type="hidden" name="captcha_id" value="{{ .Captcha.ID }}">
+    <div data-captcha-panel {{ if .Captcha.Open }}{{ else }}hidden{{ end }} class="{{ if .Captcha.Open }}{{ else }}hidden {{ end }}flex flex-col gap-3 rounded-xl border border-slate-200/90 bg-slate-50/80 p-3 dark:border-white/10 dark:bg-slate-950/50 sm:flex-row sm:items-center">
+        <img
+            src="{{ .Captcha.Content }}"
+            alt="Código de verificação"
+            class="h-[50px] w-[100px] shrink-0 rounded-lg border border-slate-200/90 bg-white object-contain dark:border-white/10"
+        >
+        <input
+            id="captcha_answer"
+            name="captcha_answer"
+            type="text"
+            required
+            inputmode="numeric"
+            autocomplete="off"
+            placeholder="Digite os números"
+            {{ if .Captcha.Open }}{{ else }}disabled{{ end }}
+            class="qn-auth-input min-w-0 flex-1 rounded-xl border border-slate-200/90 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-[#2f4538]/50 focus:outline-none focus:ring-2 focus:ring-[#2f4538]/25 disabled:cursor-not-allowed disabled:opacity-60 dark:border-white/10 dark:bg-slate-950/80 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-emerald-500/40 dark:focus:ring-emerald-500/25"
+        >
+    </div>
+    {{ with index .Form.FieldErrors "captcha" }}
+        <p class="text-sm font-medium text-red-600 dark:text-red-300">{{ . }}</p>
+    {{ end }}
+</div>
+{{ end }}
+{{ end }}
+
+{{ define "auth-shell-end" }}
+            </div>
+        </div>
+        {{ template "site-footer" "qn-auth-footer" }}
+    </div>
+    <div class="qn-auth-hero relative hidden min-h-dvh w-full flex-1 flex-col items-center justify-center lg:flex lg:w-1/2">
+        <div class="qn-auth-hero__overlay absolute inset-0" aria-hidden="true"></div>
+        <div class="relative z-[1] max-w-lg px-8 py-12 text-center text-white">
+            <img src="/static/img/logo.svg" alt="" class="mx-auto h-14 w-14 shrink-0 object-contain" aria-hidden="true">
+            <h2 class="name-text-titulo qn-auth-hero__brand-title">Brid<span class="name-text-titulo-second">note</span></h2>
+            <p class="mt-4 text-lg font-normal leading-relaxed text-white/90 sm:text-xl">
+                Anotações rápidas, organizadas e sempre à mão quando você precisar.
+            </p>
+        </div>
+    </div>
+</div>
+{{ end }}

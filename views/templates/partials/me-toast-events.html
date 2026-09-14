@@ -1,0 +1,8 @@
+{{ define "me-toast-events" }}
+{{ if .PasswordChangeSuccess }}
+<div data-toast-message="Senha alterada com sucesso." data-toast-type="success" hidden></div>
+{{ end }}
+{{ if .RecoveryEmailChangeRequested }}
+<div data-toast-message="Enviamos a confirmação para {{ .PendingRecoveryEmail }}." data-toast-type="success" hidden></div>
+{{ end }}
+{{ end }}

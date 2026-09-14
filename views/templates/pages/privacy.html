@@ -1,0 +1,122 @@
+{{/*
+  AVISO: texto juridico generico de referencia, nao e parecer juridico.
+  Revise com apoio juridico e adapte ao operador real antes de publicar.
+*/}}
+{{ define "title" }}Privacidade{{ end }}
+
+{{ define "main" }}
+<div class="flex min-h-dvh flex-col">
+    <section class="mx-auto w-full max-w-3xl flex-1 px-4 py-10 text-slate-700 sm:px-6 lg:px-8 dark:text-slate-300">
+        <a href="/" class="inline-flex text-sm font-medium text-sky-700 underline-offset-2 hover:underline dark:text-sky-400">Voltar</a>
+        <p class="mt-6 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300">LGPD</p>
+        <h1 class="mt-2 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">Política de privacidade</h1>
+        <p class="mt-4 text-sm leading-relaxed">
+            Esta política descreve como o Bridopen trata dados pessoais para criar contas, autenticar usuários, proteger a aplicação e entregar a funcionalidade de anotações. Ela foi organizada em linguagem direta, com foco em transparência, segurança e direitos do titular.
+        </p>
+        <p class="mt-3 text-sm leading-relaxed">
+            As regras de uso do serviço, responsabilidades da conta e condições para notas e anexos estão nos <a href="/terms" class="font-medium text-sky-700 underline-offset-2 hover:underline dark:text-sky-400">termos de serviço</a>.
+        </p>
+        <div class="mt-6 space-y-6 text-sm leading-relaxed">
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Dados tratados</h2>
+                <p class="mt-2">
+                    O Bridopen trata os dados necessários para funcionamento da conta, das notas e dos anexos enviados pelo usuário. Isso inclui nome, sobrenome, e-mail principal, e-mail de recuperação quando informado, telefone quando informado, senha protegida por hash, dados de sessão, preferências básicas, tokens operacionais, o conteúdo das anotações criadas pelo usuário e arquivos anexados às notas.
+                </p>
+                <div class="mt-3 overflow-hidden rounded-lg border border-slate-200 dark:border-white/10">
+                    <table class="min-w-full divide-y divide-slate-200 text-left text-xs dark:divide-white/10">
+                        <thead class="bg-slate-50 text-slate-600 dark:bg-slate-900/70 dark:text-slate-300">
+                            <tr>
+                                <th scope="col" class="px-4 py-3 font-semibold">Categoria</th>
+                                <th scope="col" class="px-4 py-3 font-semibold">Exemplos</th>
+                                <th scope="col" class="px-4 py-3 font-semibold">Uso principal</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 bg-white/60 dark:divide-white/10 dark:bg-slate-950/20">
+                            <tr>
+                                <td class="px-4 py-3 font-medium text-slate-900 dark:text-white">Cadastro</td>
+                                <td class="px-4 py-3">Nome, sobrenome, e-mail, telefone opcional e e-mail de recuperação.</td>
+                                <td class="px-4 py-3">Criar, identificar e recuperar a conta.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-medium text-slate-900 dark:text-white">Autenticação</td>
+                                <td class="px-4 py-3">Senha com hash, sessão, tokens de confirmação, redefinição e recuperação.</td>
+                                <td class="px-4 py-3">Entrar com segurança e validar ações sensíveis.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-medium text-slate-900 dark:text-white">Segurança</td>
+                                <td class="px-4 py-3">Método de 2FA, desafios temporários, segredo TOTP criptografado quando habilitado.</td>
+                                <td class="px-4 py-3">Proteger a conta contra acesso indevido.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-medium text-slate-900 dark:text-white">Conteúdo</td>
+                                <td class="px-4 py-3">Título, texto, cor, estado de arquivamento ou exclusão das notas e arquivos anexados pelo usuário.</td>
+                                <td class="px-4 py-3">Entregar a funcionalidade principal de anotações.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-medium text-slate-900 dark:text-white">Anexos</td>
+                                <td class="px-4 py-3">Nome original, tipo, tamanho, identificador de armazenamento, checksum e arquivo enviado.</td>
+                                <td class="px-4 py-3">Permitir upload, download, remoção e verificação de segurança dos anexos.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Finalidades</h2>
+                <p class="mt-2">
+                    Os dados são usados para confirmar cadastro, autenticar a conta, manter a sessão, recuperar senha, configurar e validar autenticação em dois fatores, gerenciar e-mail de recuperação, salvar e organizar notas, registrar eventos de segurança e permitir exportação ou exclusão da conta.
+                </p>
+            </section>
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Necessidade e minimização</h2>
+                <p class="mt-2">
+                    O Bridopen busca tratar apenas os dados compatíveis com suas funcionalidades. Informações como telefone, e-mail de recuperação e autenticação em dois fatores dependem de configuração do usuário. Dados de notas são criados e controlados pelo próprio usuário dentro da aplicação.
+                </p>
+            </section>
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Segurança</h2>
+                <p class="mt-2">
+                    Senhas são armazenadas com hash, tokens operacionais são armazenados como hash e possuem expiração, e as páginas autenticadas usam proteção CSRF e sessão HTTP-only. Em produção, cookies devem ser transmitidos com configuração segura. Quando a autenticação por aplicativo é ativada, o segredo TOTP é armazenado criptografado.
+                </p>
+                <p class="mt-2">
+                    Anexos são limitados por tamanho e tipo permitido. Arquivos PDF e DOCX podem passar por verificação antivírus antes de serem armazenados. Quando a verificação não puder ser concluída com segurança, o upload pode ser recusado.
+                </p>
+                <p class="mt-2">
+                    O sistema também registra eventos de auditoria, como login, alteração de senha, exportação de dados, exclusão de conta e falhas relevantes. Esses registros priorizam identificadores internos, ação, entidade, resultado e data do evento, evitando armazenar senha, token, hash ou conteúdo das notas em logs.
+                </p>
+            </section>
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Compartilhamento e terceiros</h2>
+                <p class="mt-2">
+                    O Bridopen não vende dados pessoais e não usa dados de notas para publicidade. O envio de e-mails operacionais, como confirmação de cadastro, recuperação de senha e códigos de autenticação, pode depender do serviço de e-mail configurado no ambiente da aplicação.
+                </p>
+            </section>
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Retenção e exclusão</h2>
+                <p class="mt-2">
+                    Os dados da conta, das notas e dos anexos são mantidos enquanto a conta existir ou enquanto forem necessários para entregar as funcionalidades solicitadas. Tokens expirados ou já utilizados podem ser removidos por rotinas internas. Ao excluir a conta, os dados associados ao usuário são removidos conforme as regras de banco de dados da aplicação, e os arquivos físicos dos anexos vinculados à conta também são removidos do armazenamento da aplicação.
+                </p>
+            </section>
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Direitos do titular</h2>
+                <p class="mt-2">
+                    Usuários autenticados podem acessar, corrigir e atualizar dados da conta na área de perfil, exportar seus dados em formato estruturado e excluir a própria conta na área Informações de Conta. Esses recursos ajudam a exercer direitos previstos pela LGPD, como acesso, correção, portabilidade e eliminação de dados.
+                </p>
+            </section>
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Cookies e preferências</h2>
+                <p class="mt-2">
+                    O Bridopen utiliza cookies essenciais de sessão e CSRF para manter a segurança da navegação autenticada. Preferências simples, como tema claro ou escuro, podem ser salvas localmente no navegador. Para detalhes, consulte a <a href="/cookies" class="font-medium text-sky-700 underline-offset-2 hover:underline dark:text-sky-400">política de cookies</a>.
+                </p>
+            </section>
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Atualizações desta política</h2>
+                <p class="mt-2">
+                    Esta política pode ser atualizada quando houver novas funcionalidades, novos controles de segurança ou mudanças relevantes no tratamento de dados. Alterações importantes devem ser publicadas nesta página para manter a transparência com os usuários.
+                </p>
+            </section>
+        </div>
+    </section>
+    {{ template "site-footer" "" }}
+</div>
+{{ end }}

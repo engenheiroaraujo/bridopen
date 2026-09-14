@@ -1,0 +1,48 @@
+{{ define "title" }}Informações de Conta{{ end }}
+
+{{ define "main" }}
+<section class="mx-auto max-w-3xl">
+    <div class="mb-8">
+        <p class="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300">Privacidade</p>
+        <h1 class="mt-2 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">Informações de Conta</h1>
+        <p class="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+            Aqui ficam os controles relacionados aos seus dados pessoais no Bridopen.
+        </p>
+    </div>
+
+    <div class="grid gap-4 md:grid-cols-2">
+        <article class="rounded-xl border border-slate-200/90 bg-white/75 p-5 shadow-sm dark:border-white/10 dark:bg-slate-900/45">
+            <h2 class="text-base font-semibold text-slate-900 dark:text-white">Dados da conta</h2>
+            <dl class="mt-4 space-y-3 text-sm">
+                <div>
+                    <dt class="font-medium text-slate-500 dark:text-slate-400">E-mail</dt>
+                    <dd class="mt-1 break-all text-slate-900 dark:text-slate-100">{{ .Email }}</dd>
+                </div>
+            </dl>
+            <a
+                href="/account/export"
+                class="mt-5 inline-flex w-full items-center justify-center rounded-full bg-[#2f4538] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#3d5a47] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:focus-visible:ring-emerald-400"
+            >
+                Exportar meus dados
+            </a>
+        </article>
+
+        <article class="rounded-xl border border-red-200/90 bg-red-50/80 p-5 shadow-sm dark:border-red-900/50 dark:bg-red-950/25">
+            <h2 class="text-base font-semibold text-red-900 dark:text-red-100">excluir conta</h2>
+            <p class="mt-2 text-sm leading-relaxed text-red-800/90 dark:text-red-100/85">
+                A exclusao remove sua conta e suas anotações. Esta ação não pode ser desfeita.
+            </p>
+            <form action="/account/delete" method="post" class="mt-5">
+                {{csrfField}}
+                <button
+                    type="submit"
+                    class="inline-flex w-full items-center justify-center rounded-full bg-red-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 dark:focus-visible:ring-offset-slate-900"
+                    onclick="return confirm('Tem certeza que deseja excluir sua conta e suas notas?')"
+                >
+                    Excluir minha conta
+                </button>
+            </form>
+        </article>
+    </div>
+</section>
+{{ end }}

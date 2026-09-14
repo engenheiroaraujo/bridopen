@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirme seu e-mail de recuperação no Bridopen</title>
+</head>
+<body style="margin:0; padding:0; background-color:#f8fafc; color:#0f172a; font-family:Arial, Helvetica, sans-serif;">
+    <span style="display:none; max-height:0; max-width:0; overflow:hidden; opacity:0; color:transparent;">
+        Confirme este e-mail para usá-lo na recuperação da sua conta Bridopen.
+    </span>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse; background-color:#f8fafc;">
+        <tr>
+            <td align="center" style="padding:32px 16px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px; border-collapse:collapse;">
+                    <tr>
+                        <td style="padding:0 0 16px;">
+                            <p style="margin:0; font-size:26px; line-height:1.15; font-weight:700; color:#0f172a;">
+                                Brid<span style="color:#2f4538;">note</span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #e2e8f0; border-radius:16px; background-color:#ffffff; padding:32px; box-shadow:0 12px 32px rgba(15, 23, 42, 0.08);">
+                            <h1 style="margin:0; color:#0f172a; font-size:24px; line-height:1.25; font-weight:700;">
+                                Confirme seu e-mail de recuperação
+                            </h1>
+                            <p style="margin:12px 0 0; color:#475569; font-size:16px; line-height:1.6;">
+                                Recebemos uma solicitação para usar <strong>{{.email}}</strong> como e-mail de recuperação da sua conta. Clique no botão abaixo para confirmar.
+                            </p>
+                            <p style="margin:28px 0 24px; text-align:center;">
+                                <a href="{{.hostAddr}}/recovery-email/confirmation/{{.token}}" style="display:inline-block; border-radius:999px; background-color:#2f4538; color:#ffffff; font-size:16px; line-height:1; font-weight:700; text-decoration:none; padding:15px 26px; box-shadow:0 8px 18px rgba(47, 69, 56, 0.24);">
+                                    Confirmar e-mail
+                                </a>
+                            </p>
+                            <p style="margin:0; color:#64748b; font-size:13px; line-height:1.6;">
+                                Se o botão não funcionar, copie e cole este link no navegador:
+                            </p>
+                            <p style="margin:8px 0 0; color:#334155; font-size:13px; line-height:1.6; word-break:break-all;">
+                                <a href="{{.hostAddr}}/recovery-email/confirmation/{{.token}}" style="color:#0369a1; text-decoration:underline;">
+                                    {{.hostAddr}}/recovery-email/confirmation/{{.token}}
+                                </a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" style="padding:18px 8px 0;">
+                            <p style="margin:0; color:#64748b; font-size:12px; line-height:1.6;">
+                                Se você não solicitou esta alteração, ignore este e-mail e revise a segurança da sua conta.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

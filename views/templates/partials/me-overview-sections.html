@@ -1,0 +1,166 @@
+{{ define "me-overview-sections" }}
+<section id="personal-information" class="qn-me-section home-lift-card scroll-mt-24 rounded-2xl border border-slate-200/90 bg-white/70 shadow-sm dark:border-white/10 dark:bg-slate-900/40" aria-labelledby="me-personal-heading">
+                <div class="qn-me-section-head qn-me-section-head--with-actions">
+                    <div class="qn-me-section-head__text min-w-0">
+                        <h2 id="me-personal-heading" class="text-base font-semibold text-slate-900 dark:text-white">Informações pessoais</h2>
+                        <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Dados cadastrais associados à sua conta.</p>
+                    </div>
+                    <div class="qn-me-card-menu relative shrink-0">
+                        <button
+                            type="button"
+                            id="btnOpenPersonalInfoMenu"
+                            class="qn-me-card-menu__trigger"
+                            aria-expanded="false"
+                            aria-haspopup="true"
+                            aria-controls="personalInfoMenu"
+                            data-me-menu-trigger
+                            aria-label="Ações das informações pessoais"
+                            title="Mais opções"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                            </svg>
+                        </button>
+                        <div
+                            id="personalInfoMenu"
+                            class="qn-me-card-menu__panel hidden"
+                            role="menu"
+                            aria-label="Ações das informações pessoais"
+                            aria-hidden="true"
+                        >
+                            <button
+                                type="button"
+                                id="btnOpenEditPersonalInfoModal"
+                                class="qn-me-card-menu__item"
+                                role="menuitem"
+                            >
+                                Editar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <dl class="qn-me-dl mt-5">
+                    <div class="qn-me-row">
+                        <dt>Nome</dt>
+                        <dd>{{ .FullName }}</dd>
+                    </div>
+                    <div class="qn-me-row">
+                        <dt>Telefone</dt>
+                        <dd>{{ .PhoneNumber }}</dd>
+                    </div>
+                </dl>
+                {{ if not .HasPersonalInfo }}
+                <p class="mt-4 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                    Os dados pessoais completos ainda não foram registrados nesta conta.
+                </p>
+                {{ end }}
+            </section>
+
+            <section id="account-settings" class="qn-me-section home-lift-card mt-4 scroll-mt-24 rounded-2xl border border-slate-200/90 bg-white/70 shadow-sm dark:border-white/10 dark:bg-slate-900/40 sm:mt-5" aria-labelledby="me-settings-heading">
+                <div class="qn-me-section-head qn-me-section-head--with-actions">
+                    <div class="qn-me-section-head__text min-w-0">
+                    <h2 id="me-settings-heading" class="text-base font-semibold text-slate-900 dark:text-white">Configurações da conta</h2>
+                    <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Acesso, segurança e histórico.</p>
+                    </div>
+                    <div class="qn-me-card-menu relative shrink-0">
+                        <button
+                            type="button"
+                            class="qn-me-card-menu__trigger"
+                            aria-expanded="false"
+                            aria-haspopup="true"
+                            aria-controls="accountSettingsMenu"
+                            aria-label="Ações das configurações da conta"
+                            title="Mais opções"
+                            data-me-menu-trigger
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                            </svg>
+                        </button>
+                        <div
+                            id="accountSettingsMenu"
+                            class="qn-me-card-menu__panel hidden"
+                            role="menu"
+                            aria-label="Ações das configurações da conta"
+                            aria-hidden="true"
+                        >
+                            <button
+                                type="button"
+                                class="qn-me-card-menu__item"
+                                role="menuitem"
+                                data-recovery-email-open
+                            >
+                                Alterar e-mail de recuperação
+                            </button>
+                            <button
+                                type="button"
+                                class="qn-me-card-menu__item"
+                                role="menuitem"
+                                data-password-change-open
+                            >
+                                Alterar senha
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <dl class="qn-me-dl mt-5">
+                    <div class="qn-me-row">
+                        <dt>E-mail</dt>
+                        <dd class="break-all">{{ .Email }}</dd>
+                    </div>
+                    <div class="qn-me-row">
+                        <dt>E-mail de recuperação</dt>
+                        <dd class="break-all">
+                            {{ .RecoveryEmail }}
+                            {{ if .PendingRecoveryEmail }}
+                            <span class="mt-1 block text-xs font-normal leading-relaxed text-amber-700 dark:text-amber-300">
+                                Aguardando confirmação: {{ .PendingRecoveryEmail }}
+                            </span>
+                            {{ end }}
+                        </dd>
+                    </div>
+                    <div class="qn-me-row">
+                        <dt>Senha</dt>
+                        <dd class="font-mono tracking-[0.08em]" aria-label="Senha cadastrada">***********</dd>
+                    </div>
+                    <div class="qn-me-row">
+                        <dt>Membro desde</dt>
+                        <dd>{{ .MemberSince }}</dd>
+                    </div>
+                </dl>
+            </section>
+            <section id="privacy-data" class="qn-me-section home-lift-card mt-4 scroll-mt-24 rounded-2xl border border-slate-200/90 bg-white/70 shadow-sm dark:border-white/10 dark:bg-slate-900/40 sm:mt-5" aria-labelledby="me-privacy-heading">
+                <div class="qn-me-section-head">
+                    <h2 id="me-privacy-heading" class="text-base font-semibold text-slate-900 dark:text-white">Privacidade e dados</h2>
+                    <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Exportação e exclusão conforme a LGPD.</p>
+                </div>
+                <div class="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                    <a
+                        href="/account/export"
+                        class="inline-flex flex-1 items-center justify-center rounded-full bg-[#2f4538] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#3d5a47] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:focus-visible:ring-emerald-400 sm:flex-none sm:min-w-[12rem]"
+                    >
+                        Exportar meus dados
+                    </a>
+                    <a
+                        href="/cookies"
+                        class="inline-flex flex-1 items-center justify-center rounded-full border border-slate-200/90 bg-white/80 px-5 py-2.5 text-sm font-semibold text-slate-800 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:border-white/15 dark:bg-slate-950/60 dark:text-slate-100 dark:hover:bg-white/10 sm:flex-none sm:min-w-[12rem]"
+                    >
+                        Política de cookies
+                    </a>
+                </div>
+                <form id="account-delete-form" action="/account/delete" method="post" class="mt-5 rounded-xl border border-red-200/90 bg-red-50/80 p-4 dark:border-red-900/50 dark:bg-red-950/25" novalidate>
+                    {{csrfField}}
+                    <p class="text-sm font-medium text-red-900 dark:text-red-100">Excluir conta</p>
+                    <p class="mt-1 text-sm leading-relaxed text-red-800/90 dark:text-red-100/85">
+                        Remove sua conta e todas as anotações. Esta ação não pode ser desfeita.
+                    </p>
+                    <button
+                        type="button"
+                        class="mt-4 inline-flex w-full items-center justify-center rounded-full bg-red-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-red-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 dark:focus-visible:ring-offset-slate-900 sm:w-auto"
+                        data-account-delete-open
+                    >
+                        Excluir minha conta
+                    </button>
+                </form>
+            </section>
+{{ end }}

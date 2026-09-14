@@ -1,0 +1,80 @@
+{{/*
+  AVISO: texto juridico generico de referencia, nao e parecer juridico.
+  Revise com apoio juridico e adapte ao operador real antes de publicar.
+*/}}
+{{ define "title" }}Cookies{{ end }}
+
+{{ define "main" }}
+<div class="flex min-h-dvh flex-col">
+    <section class="mx-auto w-full max-w-3xl flex-1 px-4 py-10 text-slate-700 sm:px-6 lg:px-8 dark:text-slate-300">
+        <a href="/" class="inline-flex text-sm font-medium text-sky-700 underline-offset-2 hover:underline dark:text-sky-400">Voltar</a>
+        <p class="mt-6 text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300">Privacidade</p>
+        <h1 class="mt-2 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">Política de cookies</h1>
+        <p class="mt-4 text-sm leading-relaxed">
+            Esta política explica como o Bridopen utiliza cookies e tecnologias semelhantes para manter a aplicação segura, preservar preferências simples e melhorar a experiência de uso. O conteúdo segue uma estrutura clara de finalidade, categoria, duração e gerenciamento, inspirada em boas práticas de páginas públicas de cookies.
+        </p>
+        <div class="mt-6 space-y-6 text-sm leading-relaxed">
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">O que são cookies</h2>
+                <p class="mt-2">
+                    Cookies são pequenos arquivos salvos pelo navegador quando você acessa um site. Eles podem identificar uma sessão, manter uma preferência ou ajudar a proteger formulários. Tecnologias semelhantes, como <span class="font-medium text-slate-900 dark:text-white">localStorage</span> e <span class="font-medium text-slate-900 dark:text-white">sessionStorage</span>, também podem guardar informações no navegador.
+                </p>
+            </section>
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Cookies estritamente necessários</h2>
+                <p class="mt-2">
+                    O Bridopen utiliza cookies essenciais para autenticação, manutenção da sessão e proteção contra CSRF. Sem eles, recursos como login, cadastro, envio de formulários, criação de notas e ações protegidas não funcionam corretamente.
+                </p>
+                <div class="mt-3 overflow-hidden rounded-lg border border-slate-200 dark:border-white/10">
+                    <table class="min-w-full divide-y divide-slate-200 text-left text-xs dark:divide-white/10">
+                        <thead class="bg-slate-50 text-slate-600 dark:bg-slate-900/70 dark:text-slate-300">
+                            <tr>
+                                <th scope="col" class="px-4 py-3 font-semibold">Nome</th>
+                                <th scope="col" class="px-4 py-3 font-semibold">Finalidade</th>
+                                <th scope="col" class="px-4 py-3 font-semibold">Duração</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 bg-white/60 dark:divide-white/10 dark:bg-slate-950/20">
+                            <tr>
+                                <td class="px-4 py-3 font-medium text-slate-900 dark:text-white">bridopen_session</td>
+                                <td class="px-4 py-3">Mantém a sessão autenticada e dados temporários de segurança do usuário.</td>
+                                <td class="px-4 py-3">Cookie de sessão, com tempo máximo de vida de até 1 hora e inatividade de até 30 minutos.</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-medium text-slate-900 dark:text-white">bridopen_csrf</td>
+                                <td class="px-4 py-3">Ajuda a impedir envio de formulários por páginas não autorizadas.</td>
+                                <td class="px-4 py-3">Até 1 hora.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Preferências e armazenamento local</h2>
+                <p class="mt-2">
+                    A preferência de tema claro ou escuro é salva no navegador com a chave <span class="font-medium text-slate-900 dark:text-white">qn-theme</span>. Essa informação não é usada para identificar você e pode ser apagada nas configurações do navegador. O Bridopen também pode usar armazenamento de sessão para controlar pequenos comportamentos visuais da interface durante a navegação.
+                </p>
+            </section>
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Cookies de análise, publicidade e terceiros</h2>
+                <p class="mt-2">
+                    O Bridopen não utiliza cookies de publicidade, análise comportamental, remarketing, redes sociais ou rastreamento de terceiros. Também não compartilha dados de navegação com plataformas externas para criação de perfis comerciais.
+                </p>
+            </section>
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Como gerenciar cookies</h2>
+                <p class="mt-2">
+                    Você pode bloquear, apagar ou limitar cookies nas configurações do seu navegador. Ao remover cookies essenciais, será necessário fazer login novamente e algumas ações protegidas podem exigir o recarregamento da página para gerar um novo token de segurança.
+                </p>
+            </section>
+            <section>
+                <h2 class="text-base font-semibold text-slate-900 dark:text-white">Atualizações desta política</h2>
+                <p class="mt-2">
+                    Esta política pode ser atualizada se o Bridopen passar a usar novos cookies, novas integrações ou novas finalidades. Alterações relevantes devem aparecer nesta página para que você consiga revisar como a aplicação utiliza informações salvas no navegador.
+                </p>
+            </section>
+        </div>
+    </section>
+    {{ template "site-footer" "" }}
+</div>
+{{ end }}

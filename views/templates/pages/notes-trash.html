@@ -1,0 +1,74 @@
+{{ define "title" }}Lixeira{{ end }}
+
+{{ define "main" }}
+<section class="qn-page-section">
+    <div class="mb-6">
+        <div>
+            <h1 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-3xl">Lixeira</h1>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">Notas movidas para a lixeira podem ser restauradas ou removidas definitivamente.</p>
+        </div>
+    </div>
+
+    {{ if eq (len .) 0 }}
+    <p class="text-base leading-relaxed text-slate-700 dark:text-slate-300">A lixeira está vazia.</p>
+    {{ else }}
+    <div>
+        <ul id="note-grid" class="grid grid-cols-[repeat(auto-fill,minmax(10.5rem,1fr))] gap-3 sm:grid-cols-[repeat(auto-fill,minmax(12rem,1fr))]" role="list">
+            {{ range . }}
+            <li class="min-h-[6.5rem]">
+                <div
+                    data-note-color="{{ .Color }}"
+                    class="keep-note-card flex h-full min-h-[6.5rem] flex-col overflow-visible rounded-2xl border border-slate-900/10 p-4 opacity-90 shadow-md transition duration-200 hover:z-[1] hover:-translate-y-0.5 hover:shadow-lg dark:border-white/12">
+                    <div class="mb-2 flex min-h-7 justify-end">
+                        <div class="qn-note-actions shrink-0" aria-label="Ações da nota">
+                            <form action="/note/{{ .Id }}/restore" method="post" class="contents">
+                                {{csrfField}}
+                                <button
+                                    type="submit"
+                                    class="qn-note-action qn-note-action--restore"
+                                    aria-label="Restaurar nota"
+                                    title="Restaurar nota"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 11.7a7 7 0 1 0 2.05-4.95L5 8.8M5 4.9v3.9h3.9M9.6 12.35l1.75 1.75 3.95-4.2" />
+                                    </svg>
+                                </button>
+                            </form>
+                            <button
+                                type="button"
+                                class="qn-note-action qn-note-action--danger"
+                                data-note-delete-action
+                                data-note-delete-url="/note/{{ .Id }}/destroy"
+                                data-note-delete-redirect="/notes/trash"
+                                data-note-delete-title="Excluir definitivamente?"
+                                data-note-delete-message="Esta ação não pode ser desfeita. A nota será removida definitivamente."
+                                data-note-delete-confirm="Excluir definitivamente"
+                                data-note-delete-error="Não foi possível excluir a nota definitivamente. Tente novamente."
+                                aria-label="Excluir nota definitivamente"
+                                title="Excluir definitivamente"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 7.25h14M9.75 7.25V5.8c0-.58.47-1.05 1.05-1.05h2.4c.58 0 1.05.47 1.05 1.05v1.45M17.75 7.25l-.7 11.1A1.5 1.5 0 0 1 15.55 19.75h-7.1a1.5 1.5 0 0 1-1.5-1.4l-.7-11.1M10 11v5.25M14 11v5.25" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <a href="/note/{{ .Id }}"
+                        class="min-w-0 flex-1 rounded-lg outline-none ring-sky-500/0 transition hover:opacity-95 focus-visible:ring-2 focus-visible:ring-sky-500 dark:focus-visible:ring-emerald-400">
+                        <span class="block text-base font-medium leading-snug text-slate-900 line-clamp-4">{{ if .Title }}{{ .Title }}{{ else }}<span class="font-normal italic text-slate-600/90">Sem título</span>{{ end }}</span>
+                    </a>
+                    {{ if .Tags }}
+                    <div class="mt-3 flex flex-wrap gap-1.5">
+                        {{ range .Tags }}
+                        <a href="/?tag={{ .Slug }}" class="inline-flex max-w-full items-center rounded-full bg-white/55 px-2 py-0.5 text-[11px] font-semibold leading-5 text-slate-700 shadow-sm transition hover:bg-white/80 dark:bg-slate-950/30 dark:text-slate-200 dark:hover:bg-slate-950/45">#{{ .Name }}</a>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                </div>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+    {{ end }}
+</section>
+{{ end }}

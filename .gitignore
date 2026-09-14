@@ -1,0 +1,51 @@
+# Segredos e configuracao local
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+config.local.json
+secrets/
+
+# Artefatos de build
+build/
+dist/
+tmp/
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+coverage.out
+coverage.html
+
+# Dados de runtime
+storage/
+attachments/
+uploads/
+*.log
+*.db
+*.sqlite
+*.sqlite3
+*.sql.gz
+postgres-data/
+pgdata/
+
+# Dependencias de ferramentas front-end
+node_modules/
+
+# Editores e IDEs
+.idea/
+*.swp
+*.swo
+.history/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini

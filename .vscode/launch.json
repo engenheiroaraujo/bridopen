@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Backend",
+      "type": "go",
+      "request": "launch",
+      "mode": "debug",
+      "program": "${workspaceFolder}/cmd/http",
+      "cwd": "${workspaceFolder}/",
+      "envFile": "${workspaceFolder}/.env",
+      "console": "integratedTerminal",
+      "showLog": true
+    }
+  ]
+}

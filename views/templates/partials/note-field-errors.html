@@ -1,0 +1,12 @@
+{{ define "note-field-errors" }}
+{{ with .FieldErrors }}
+<div class="qn-note-alert" role="alert" aria-live="polite">
+    <p>Preencha os campos obrigatórios</p>
+    <ul>
+        {{ with index . "title" }}<li>{{ . }}</li>{{ end }}
+        {{ with index . "content" }}<li>{{ . }}</li>{{ end }}
+        {{ with index . "tags" }}<li>{{ . }}</li>{{ end }}
+    </ul>
+</div>
+{{ end }}
+{{ end }}

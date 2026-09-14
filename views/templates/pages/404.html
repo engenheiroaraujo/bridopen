@@ -1,0 +1,25 @@
+{{ define "title" }}Página não encontrada{{ end }}
+
+{{ define "main" }}
+{{ template "auth-shell-start" . }}
+    <div class="text-center">
+        <p class="mb-3 text-sm font-semibold tracking-[0.24em] text-sky-700 dark:text-sky-300">
+            404
+        </p>
+        <h1 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
+            Página não encontrada
+        </h1>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+            Desculpe, não conseguimos encontrar a página que você está procurando.
+        </p>
+        <div class="mt-8">
+            <a
+                href="/"
+                class="inline-flex w-full items-center justify-center rounded-full bg-[#2f4538] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#3d5a47] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:focus-visible:ring-emerald-400"
+            >
+                Ir para o início
+            </a>
+        </div>
+    </div>
+{{ template "auth-shell-end" . }}
+{{ end }}

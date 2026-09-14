@@ -1,0 +1,91 @@
+{{ define "note-attachments" }}
+<div class="qn-note-panel">
+    <div class="qn-note-panel__head">
+        <svg class="qn-note-panel__icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m18.4 8.6-8.9 8.9a4 4 0 0 1-5.7-5.7l9.4-9.4a2.75 2.75 0 0 1 3.9 3.9l-9.4 9.4a1.5 1.5 0 0 1-2.1-2.1l8.8-8.8" />
+        </svg>
+        <h2>Anexos</h2>
+    </div>
+
+    {{ with .AttachmentError }}
+    <div data-toast-message="{{ . }}" data-toast-type="error" hidden></div>
+    {{ end }}
+
+    {{ if .Id }}
+        {{ if not .Deleted }}
+        <form action="/note/{{ .Id }}/attachments" method="post" enctype="multipart/form-data" class="qn-note-upload">
+            {{ csrfField }}
+            <input type="hidden" name="redirect" value="{{ if .AttachmentRedirect }}{{ .AttachmentRedirect }}{{ else }}/note/{{ .Id }}/edit{{ end }}">
+            <label class="block">
+                <span class="qn-note-upload__label">Adicionar arquivo</span>
+                <input
+                    type="file"
+                    name="attachment"
+                    required
+                    accept=".jpg,.jpeg,.png,.webp,.pdf,.txt,.docx,image/jpeg,image/png,image/webp,application/pdf,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    class="qn-note-file-input"
+                >
+            </label>
+            <p class="qn-note-help">JPG, PNG, WEBP, PDF, TXT ou DOCX até 10 MB.</p>
+            <button type="submit" class="qn-note-btn qn-note-btn--primary qn-note-btn--full">
+                Anexar
+            </button>
+        </form>
+        {{ else }}
+        <p class="qn-note-muted">Restaure a nota para adicionar ou remover anexos.</p>
+        {{ end }}
+    {{ else }}
+    <p class="qn-note-muted">Salve a nota para liberar o envio de imagens e documentos.</p>
+    {{ end }}
+
+    {{ $note := . }}
+    {{ if .Attachments }}
+    <ul class="qn-note-attachment-list" aria-label="Anexos da nota">
+        {{ range .Attachments }}
+        <li class="qn-note-attachment">
+            {{ if .IsImage }}
+            <a href="{{ .URL }}" target="_blank" rel="noopener" class="qn-note-attachment__preview">
+                <img src="{{ .URL }}" alt="{{ .Name }}">
+            </a>
+            {{ end }}
+            <div class="qn-note-attachment__body">
+                {{ if not .IsImage }}
+                <span class="qn-note-attachment__icon" aria-hidden="true">
+                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 3.75h6.2L17 7.55v12.7H7zM13 3.75v4h4" />
+                    </svg>
+                </span>
+                {{ end }}
+                <div class="qn-note-attachment__meta">
+                    <a href="{{ .URL }}" target="_blank" rel="noopener">{{ .Name }}</a>
+                    <p>{{ .SizeLabel }}</p>
+                </div>
+                {{ if and $note.Id (not $note.Deleted) }}
+                <button
+                    type="button"
+                    class="qn-note-attachment__delete"
+                    data-note-delete-action
+                    data-note-delete-url="/note/{{ $note.Id }}/attachments/{{ .Id }}"
+                    data-note-delete-reload="true"
+                    data-note-delete-title="Remover anexo?"
+                    data-note-delete-message="O arquivo será removido desta nota."
+                    data-note-delete-confirm="Remover anexo"
+                    data-note-delete-error="Não foi possível remover o anexo. Tente novamente."
+                    aria-label="Remover anexo"
+                    title="Remover anexo"
+                >
+                    <span>Remover</span>
+                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 7h12M10 7V5.75c0-.55.45-1 1-1h2c.55 0 1 .45 1 1V7m3 0-.55 10.5a1.5 1.5 0 0 1-1.5 1.42h-5.9a1.5 1.5 0 0 1-1.5-1.42L7 7m4 3.5v5m2-5v5" />
+                    </svg>
+                </button>
+                {{ end }}
+            </div>
+        </li>
+        {{ end }}
+    </ul>
+    {{ else }}
+    <p class="qn-note-empty">Nenhum anexo ainda.</p>
+    {{ end }}
+</div>
+{{ end }}

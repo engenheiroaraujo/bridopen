@@ -1,0 +1,26 @@
+{{ define "base-auth" }}
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Bridopen — anotações rápidas.">
+    <meta name="csrf-token" content="{{ csrfToken }}">
+    <script src="/static/js/core/theme-init.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/static/js/core/tailwind-config.js"></script>
+    <link rel="icon" type="image/svg+xml" href="/static/img/logo.svg">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>{{ template "title" . }} — Bridopen</title>
+</head>
+<body class="site-body font-sans antialiased [text-rendering:optimizeLegibility]">
+    <a class="skip-link" href="#main-content">Ir para o conteúdo</a>
+    <main id="main-content" role="main" class="qn-auth-main" tabindex="-1">
+        {{ template "main" . }}
+    </main>
+    <script src="/static/js/core/toast.js?v=1"></script>
+    {{ block "pageScripts" .}}{{ end }}
+    <script src="/static/js/core/index.js"></script>
+</body>
+</html>
+{{ end }}

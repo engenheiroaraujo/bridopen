@@ -1,0 +1,68 @@
+{{ define "title" }}Editar nota{{ end }}
+
+{{ define "main" }}
+<section class="qn-note-workspace">
+    <div class="qn-note-shell">
+        <form id="note-new-form" action="/note" method="post" class="qn-note-editor">
+            <header class="qn-note-editor__header">
+                <a href="/note/{{ .Id }}" class="qn-note-back">Voltar</a>
+                <div class="qn-note-editor__actions">
+                    <a href="/note/{{ .Id }}" class="qn-note-btn qn-note-btn--ghost">Cancelar</a>
+                    <button type="submit" class="qn-note-btn qn-note-btn--primary">Atualizar</button>
+                </div>
+            </header>
+
+            {{ template "note-field-errors" . }}
+
+            {{.CSRFField}}
+            <input type="hidden" name="id" value="{{ .Id }}">
+            {{ template "note-title-field" . }}
+            <textarea
+                name="content"
+                id="content"
+                rows="14"
+                class="qn-note-content-input"
+                placeholder="Escreva sua nota..."
+                aria-label="Conteúdo"
+            >{{- .Content -}}</textarea>
+        </form>
+
+        <aside class="qn-note-side">
+            {{ template "note-tag-picker" . }}
+            <div class="qn-note-panel">
+                <div class="qn-note-panel__head">
+                    <h2>Aparência</h2>
+                </div>
+                <label class="qn-note-color-control">
+                    <span>Cor do cartão</span>
+                    <input
+                        type="color"
+                        name="color"
+                        id="color"
+                        form="note-new-form"
+                        value="{{.Color}}"
+                        class="qn-note-color-swatch"
+                        aria-describedby="color-hex-hint"
+                        title="Escolher cor"
+                    />
+                </label>
+                <input
+                    type="text"
+                    id="color-hex"
+                    form="note-new-form"
+                    class="qn-note-hex-input"
+                    value="{{.Color}}"
+                    maxlength="7"
+                    spellcheck="false"
+                    autocomplete="off"
+                    placeholder="#rrggbb"
+                    aria-label="Código hexadecimal da cor"
+                    inputmode="text"
+                />
+                <p id="color-hex-hint" class="qn-note-help">Use #rgb ou #rrggbb.</p>
+            </div>
+            {{ template "note-attachments" . }}
+        </aside>
+    </div>
+</section>
+{{ end }}

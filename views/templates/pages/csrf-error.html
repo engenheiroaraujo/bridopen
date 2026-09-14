@@ -1,0 +1,28 @@
+{{ define "title" }}Sessão expirada{{ end }}
+
+{{ define "main" }}
+{{ template "auth-shell-start" . }}
+    <div class="text-center">
+        <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-amber-500/15 text-amber-700 dark:bg-amber-400/15 dark:text-amber-300">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l3.75 2.25M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+        </div>
+        <h1 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
+            Sessão expirada
+        </h1>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+            O formulário ficou aberto por muito tempo ou a página foi enviada sem uma validação atualizada.
+            Recarregue a tela e tente novamente.
+        </p>
+        <div class="mt-8">
+            <a
+                href="{{ .ActionHref }}"
+                class="inline-flex w-full items-center justify-center rounded-full bg-[#2f4538] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#3d5a47] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:focus-visible:ring-emerald-400"
+            >
+                {{ .ActionLabel }}
+            </a>
+        </div>
+    </div>
+{{ template "auth-shell-end" . }}
+{{ end }}

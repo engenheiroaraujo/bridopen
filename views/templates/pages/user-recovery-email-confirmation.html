@@ -1,0 +1,45 @@
+{{ define "title" }}{{ if .Success }}E-mail confirmado{{ else }}Link inválido{{ end }}{{ end }}
+
+{{ define "main" }}
+{{ template "auth-shell-start" . }}
+    {{ if .Success }}
+        <div class="text-center">
+            <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-600 dark:bg-emerald-400/15 dark:text-emerald-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+            </div>
+            <h1 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">E-mail de recuperação confirmado</h1>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                O e-mail <span class="font-medium text-slate-800 dark:text-slate-200">{{ .RegisteredEmail }}</span> já pode ser usado para recuperação da conta.
+            </p>
+            <div class="mt-8">
+                <a href="/user/signin" class="inline-flex w-full items-center justify-center rounded-full bg-[#2f4538] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#3d5a47] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:focus-visible:ring-emerald-400">
+                    Ir para o login
+                </a>
+            </div>
+        </div>
+    {{ else }}
+        <div class="text-center">
+            <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-amber-500/15 text-amber-700 dark:bg-amber-400/15 dark:text-amber-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                </svg>
+            </div>
+            <h1 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Link inválido ou expirado</h1>
+            {{ with .Form.FieldErrors }}
+            <div class="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                {{ range $field, $msg := . }}
+                <p>{{ $msg }}</p>
+                {{ end }}
+            </div>
+            {{ end }}
+            <div class="mt-8">
+                <a href="/user/signin" class="inline-flex w-full items-center justify-center rounded-full bg-[#2f4538] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#3d5a47] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:focus-visible:ring-emerald-400">
+                    Ir para o login
+                </a>
+            </div>
+        </div>
+    {{ end }}
+{{ template "auth-shell-end" . }}
+{{ end }}

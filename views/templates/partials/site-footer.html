@@ -1,0 +1,23 @@
+{{ define "site-footer" }}
+<footer class="site-footer footer-rodape {{ . }}" role="contentinfo" aria-label="Rodapé">
+    <h2 class="sr-only">Rodapé</h2>
+    <div class="site-footer__inner">
+        <div class="site-footer__brand">
+            <a href="/" class="site-footer__logo-link" aria-label="Página inicial do Bridopen">
+                <img src="/static/img/logo.svg" alt="" class="site-footer__logo" aria-hidden="true">
+            </a>
+            <span>© 2026 Bridopen. Todos os direitos reservados.</span>
+        </div>
+        <nav class="site-footer__nav" aria-label="Links do rodapé">
+            <a href="/terms">Termos</a>
+            <a href="/privacy">Privacidade</a>
+            <a href="/cookies">Cookies</a>
+            {{if isAuthenticated}}
+                <a href="/me/security/two-step-verification">Segurança</a>
+            {{end}}
+            {{/* Ajuste o link de contato para o canal da sua instancia antes de publicar. */}}
+            <a href="https://example.com" target="_blank" rel="noopener noreferrer">Contato</a>
+        </nav>
+    </div>
+</footer>
+{{ end }}

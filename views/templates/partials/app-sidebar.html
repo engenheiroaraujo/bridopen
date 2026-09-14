@@ -1,0 +1,115 @@
+{{ define "app-sidebar" }}
+{{ $path := navPath }}
+{{ $notesOpen := or (eq $path "/") (eq $path "/note/new") }}
+{{ $organizeOpen := or (eq $path "/tags") (eq $path "/notes/archive") (eq $path "/notes/trash") }}
+{{ $overviewOpen := or (eq $path "/me/overview/personal-information") (eq $path "/me/overview/account-settings") (eq $path "/me/overview/privacy-data") }}
+{{ $securityOpen := or (eq $path "/me/security") (eq $path "/me/security/two-step-verification") (eq $path "/me/security/active-sessions") }}
+<aside id="app-sidebar" class="qn-sidebar" aria-label="Navegação principal" data-sidebar>
+    <div class="qn-sidebar-inner">
+        <div class="qn-sidebar-head">
+            <a href="/" class="qn-sidebar-brand container-name-text-titulo">
+                <p class="name-text-titulo">Brid<span class="name-text-titulo-second">note</span></p>
+            </a>
+            <button
+                type="button"
+                class="qn-sidebar-close lg:hidden"
+                data-sidebar-close
+                aria-label="Fechar menu"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                </svg>
+            </button>
+        </div>
+
+        <nav class="qn-sidebar-nav" aria-label="Seções">
+            <p class="qn-sidebar-label">Notas</p>
+            <a href="/" class="qn-sidebar-link{{ if eq $path "/" }} qn-sidebar-link--active{{ end }}"{{ if eq $path "/" }} aria-current="page"{{ end }}>
+                <span>
+                    <strong>Home</strong>
+                    <small>Ver suas anotações</small>
+                </span>
+            </a>
+            <a href="/note/new" class="qn-sidebar-link{{ if eq $path "/note/new" }} qn-sidebar-link--active{{ end }}"{{ if eq $path "/note/new" }} aria-current="page"{{ end }}>
+                <span>
+                    <strong>Nova nota</strong>
+                    <small>Criar uma anotação</small>
+                </span>
+            </a>
+
+            <p class="qn-sidebar-label">Organizar</p>
+            <a href="/tags" class="qn-sidebar-link{{ if eq $path "/tags" }} qn-sidebar-link--active{{ end }}"{{ if eq $path "/tags" }} aria-current="page"{{ end }}>
+                <span>
+                    <strong>Etiquetas</strong>
+                    <small>Organizar categorias</small>
+                </span>
+            </a>
+            <a href="/notes/archive" class="qn-sidebar-link{{ if eq $path "/notes/archive" }} qn-sidebar-link--active{{ end }}"{{ if eq $path "/notes/archive" }} aria-current="page"{{ end }}>
+                <span>
+                    <strong>Arquivo</strong>
+                    <small>Notas arquivadas</small>
+                </span>
+            </a>
+            <a href="/notes/trash" class="qn-sidebar-link{{ if eq $path "/notes/trash" }} qn-sidebar-link--active{{ end }}"{{ if eq $path "/notes/trash" }} aria-current="page"{{ end }}>
+                <span>
+                    <strong>Lixeira</strong>
+                    <small>Restaurar ou excluir</small>
+                </span>
+            </a>
+
+            <p class="qn-sidebar-label">Conta</p>
+            <button
+                type="button"
+                class="qn-sidebar-link qn-sidebar-link--button{{ if $overviewOpen }} qn-sidebar-link--open{{ end }}"
+                aria-expanded="{{ if $overviewOpen }}true{{ else }}false{{ end }}"
+                aria-controls="sidebarOverviewSubnav"
+                data-sidebar-group="overview"
+            >
+                <span>
+                    <strong>Visão geral</strong>
+                    <small>Dados e configurações</small>
+                </span>
+                <svg class="qn-nav-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.17l3.71-3.94a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <div id="sidebarOverviewSubnav" class="qn-sidebar-subnav{{ if $overviewOpen }} is-open{{ end }}"{{ if not $overviewOpen }} hidden{{ end }}>
+                <a href="/me/overview/personal-information" class="qn-sidebar-sublink{{ if eq $path "/me/overview/personal-information" }} qn-sidebar-sublink--active{{ end }}"{{ if eq $path "/me/overview/personal-information" }} aria-current="page"{{ end }}>Informações pessoais</a>
+                <a href="/me/overview/account-settings" class="qn-sidebar-sublink{{ if eq $path "/me/overview/account-settings" }} qn-sidebar-sublink--active{{ end }}"{{ if eq $path "/me/overview/account-settings" }} aria-current="page"{{ end }}>Configurações da conta</a>
+                <a href="/me/overview/privacy-data" class="qn-sidebar-sublink{{ if eq $path "/me/overview/privacy-data" }} qn-sidebar-sublink--active{{ end }}"{{ if eq $path "/me/overview/privacy-data" }} aria-current="page"{{ end }}>Privacidade e dados</a>
+            </div>
+
+            <button
+                type="button"
+                class="qn-sidebar-link qn-sidebar-link--button{{ if $securityOpen }} qn-sidebar-link--open{{ end }}"
+                aria-expanded="{{ if $securityOpen }}true{{ else }}false{{ end }}"
+                aria-controls="sidebarSecuritySubnav"
+                data-sidebar-group="security"
+            >
+                <span>
+                    <strong>Segurança</strong>
+                    <small>Conta e sessões</small>
+                </span>
+                <svg class="qn-nav-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.17l3.71-3.94a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <div id="sidebarSecuritySubnav" class="qn-sidebar-subnav{{ if $securityOpen }} is-open{{ end }}"{{ if not $securityOpen }} hidden{{ end }}>
+                <a href="/me/security/two-step-verification" class="qn-sidebar-sublink{{ if eq $path "/me/security/two-step-verification" }} qn-sidebar-sublink--active{{ end }}"{{ if eq $path "/me/security/two-step-verification" }} aria-current="page"{{ end }}>Verificação em duas etapas</a>
+                <a href="/me/security/active-sessions" class="qn-sidebar-sublink{{ if eq $path "/me/security/active-sessions" }} qn-sidebar-sublink--active{{ end }}"{{ if eq $path "/me/security/active-sessions" }} aria-current="page"{{ end }}>Histórico de sessões</a>
+            </div>
+        </nav>
+
+        <div class="qn-sidebar-foot">
+            <p class="qn-sidebar-user" title="{{ firstName }}">{{ firstName }}</p>
+            <button type="button" class="qn-sidebar-action theme-toggle" data-theme-toggle aria-pressed="false">
+                <span data-theme-toggle-label>Tema</span>
+            </button>
+            <form action="/user/signout" method="post" data-nav-full>
+                {{ csrfField }}
+                <button type="submit" class="qn-sidebar-action qn-sidebar-action--danger w-full">Sair</button>
+            </form>
+        </div>
+    </div>
+</aside>
+{{ end }}

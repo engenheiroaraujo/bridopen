@@ -1,0 +1,10 @@
+.git
+.github
+.env
+.env.*
+build
+*.exe
+*.log
+storage/
+.DS_Store
+Thumbs.db

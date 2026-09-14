@@ -1,0 +1,101 @@
+# github.com/alexedwards/scs/pgxstore v0.0.0-20251002162104-209de6e426de
+## explicit; go 1.14
+github.com/alexedwards/scs/pgxstore
+# github.com/alexedwards/scs/v2 v2.9.0
+## explicit; go 1.12
+github.com/alexedwards/scs/v2
+github.com/alexedwards/scs/v2/memstore
+# github.com/davecgh/go-spew v1.1.1
+## explicit
+github.com/davecgh/go-spew/spew
+# github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0
+## explicit
+github.com/golang/freetype
+github.com/golang/freetype/raster
+github.com/golang/freetype/truetype
+# github.com/gorilla/csrf v1.7.3
+## explicit; go 1.20
+github.com/gorilla/csrf
+# github.com/gorilla/securecookie v1.1.2
+## explicit; go 1.20
+github.com/gorilla/securecookie
+# github.com/jackc/pgpassfile v1.0.0
+## explicit; go 1.12
+github.com/jackc/pgpassfile
+# github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761
+## explicit; go 1.14
+github.com/jackc/pgservicefile
+# github.com/jackc/pgx/v5 v5.9.2
+## explicit; go 1.25.0
+github.com/jackc/pgx/v5
+github.com/jackc/pgx/v5/internal/iobufpool
+github.com/jackc/pgx/v5/internal/pgio
+github.com/jackc/pgx/v5/internal/sanitize
+github.com/jackc/pgx/v5/internal/stmtcache
+github.com/jackc/pgx/v5/pgconn
+github.com/jackc/pgx/v5/pgconn/ctxwatch
+github.com/jackc/pgx/v5/pgconn/internal/bgreader
+github.com/jackc/pgx/v5/pgproto3
+github.com/jackc/pgx/v5/pgtype
+github.com/jackc/pgx/v5/pgxpool
+# github.com/jackc/puddle/v2 v2.2.2
+## explicit; go 1.19
+github.com/jackc/puddle/v2
+github.com/jackc/puddle/v2/internal/genstack
+# github.com/joho/godotenv v1.5.1
+## explicit; go 1.12
+github.com/joho/godotenv
+# github.com/mojocn/base64Captcha v1.3.8
+## explicit; go 1.16
+github.com/mojocn/base64Captcha
+# github.com/pashagolub/pgxmock/v4 v4.9.0
+## explicit; go 1.23.0
+github.com/pashagolub/pgxmock/v4
+# github.com/pmezard/go-difflib v1.0.0
+## explicit
+github.com/pmezard/go-difflib/difflib
+# github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
+## explicit; go 1.13
+github.com/skip2/go-qrcode
+github.com/skip2/go-qrcode/bitset
+github.com/skip2/go-qrcode/reedsolomon
+# github.com/stretchr/testify v1.11.1
+## explicit; go 1.17
+github.com/stretchr/testify/assert
+github.com/stretchr/testify/assert/yaml
+github.com/stretchr/testify/require
+# golang.org/x/crypto v0.51.0
+## explicit; go 1.25.0
+golang.org/x/crypto/bcrypt
+golang.org/x/crypto/blowfish
+# golang.org/x/image v0.43.0
+## explicit; go 1.25.0
+golang.org/x/image/font
+golang.org/x/image/math/fixed
+# golang.org/x/sync v0.21.0
+## explicit; go 1.25.0
+golang.org/x/sync/semaphore
+# golang.org/x/text v0.38.0
+## explicit; go 1.25.0
+golang.org/x/text/cases
+golang.org/x/text/internal
+golang.org/x/text/internal/language
+golang.org/x/text/internal/language/compact
+golang.org/x/text/internal/tag
+golang.org/x/text/language
+golang.org/x/text/runes
+golang.org/x/text/secure/bidirule
+golang.org/x/text/secure/precis
+golang.org/x/text/transform
+golang.org/x/text/unicode/bidi
+golang.org/x/text/unicode/norm
+golang.org/x/text/width
+# gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc
+## explicit
+gopkg.in/alexcesaro/quotedprintable.v3
+# gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
+## explicit
+gopkg.in/gomail.v2
+# gopkg.in/yaml.v3 v3.0.1
+## explicit
+gopkg.in/yaml.v3
