@@ -1,0 +1,21 @@
+{{ define "note-title-field" }}
+<div class="qn-note-title-field" data-note-title-counter>
+    <div class="qn-note-title-meta">
+        <label for="title">Título</label>
+        <span id="note-title-count" data-note-title-count aria-live="polite">0/{{ .MaxTitleLen }}</span>
+    </div>
+    <input
+        type="text"
+        name="title"
+        id="title"
+        value="{{.Title}}"
+        maxlength="{{ .MaxTitleLen }}"
+        class="qn-note-title-input"
+        placeholder="Título da nota"
+        autocomplete="off"
+        aria-label="Título"
+        aria-describedby="note-title-count"
+        data-note-title-input
+    />
+</div>
+{{ end }}

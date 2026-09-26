@@ -1,0 +1,7 @@
+{
+    "server": {
+        "port": 5001,
+        "host": "localhost",
+        "staticDir": "./views/static"
+    }
+}

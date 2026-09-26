@@ -1,0 +1,16 @@
+drop index if exists public.idx_note_tags_name_trgm;
+drop index if exists public.idx_note_attachments_user_created;
+drop index if exists public.idx_note_attachments_note_created;
+drop index if exists public.idx_notes_content_body_trgm;
+drop index if exists public.idx_notes_content_title_trgm;
+drop index if exists public.idx_note_tag_links_tag_id;
+drop index if exists public.idx_note_tags_user_name;
+drop index if exists public.idx_notes_content_color_note;
+drop index if exists public.idx_notes_user_recent;
+drop index if exists public.idx_notes_user_state;
+drop table if exists public.note_tag_links;
+drop table if exists public.note_attachments;
+drop table if exists public.notes_content;
+drop table if exists public.note_tags;
+drop table if exists public.notes;
+drop function if exists public.qn_unaccent(text);

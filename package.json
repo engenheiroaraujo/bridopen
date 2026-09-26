@@ -1,0 +1,13 @@
+{
+  "name": "bridopen-frontend-tests",
+  "private": true,
+  "description": "Testes do frontend do Bridopen: unidade em Node e navegador real com Playwright. A aplicação em si é Go e não depende deste pacote.",
+  "scripts": {
+    "test:frontend": "node --test tests/frontend-navigation.test.cjs",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

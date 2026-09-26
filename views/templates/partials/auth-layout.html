@@ -1,0 +1,82 @@
+{{ define "auth-shell-start" }}
+<div class="qn-auth-shell">
+    <header class="bo-auth-header">
+        <a href="/" class="bo-brand" aria-label="Bridopen — início"><img src="/static/img/logo.svg?v=editorial-1" width="36" height="36" alt="" aria-hidden="true"><span class="name-text-titulo">Bridopen<span class="bo-brand-dot" aria-hidden="true">.</span></span></a>
+        <button type="button" class="theme-toggle theme-toggle--bar" data-theme-toggle aria-pressed="false" aria-label="Alternar tema">
+            <span data-theme-toggle-label>Tema</span>
+        </button>
+    </header>
+    <div class="bo-auth-body">
+    <div class="qn-auth-form-column">
+        <div class="bo-auth-form-wrap">
+            <div class="qn-auth-card">
+{{ end }}
+
+{{ define "auth-field-errors" }}
+{{ with .Form.FieldErrors }}
+{{ $hasErrors := false }}
+{{ range $field, $msg := . }}{{ if ne $field "captcha" }}{{ $hasErrors = true }}{{ end }}{{ end }}
+{{ if $hasErrors }}
+<div
+    class="mb-4 rounded-xl border border-red-200/90 bg-red-50/90 px-4 py-3 dark:border-red-900/50 dark:bg-red-950/35"
+    role="alert"
+    aria-live="polite"
+>
+    <div class="space-y-1 text-sm leading-relaxed text-red-800 dark:text-red-200/95">
+        {{ range $field, $msg := . }}
+            {{ if ne $field "captcha" }}<p>{{ $msg }}</p>{{ end }}
+        {{ end }}
+    </div>
+</div>
+{{ end }}
+{{ end }}
+{{ end }}
+
+{{ define "auth-captcha" }}
+{{ if .Captcha.Enabled }}
+<div class="space-y-3" data-auth-captcha>
+    <label for="captcha_checked" class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200/90 bg-slate-50/70 px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-100/80 dark:border-white/10 dark:bg-slate-950/50 dark:text-slate-300 dark:hover:bg-white/10">
+        <input
+            id="captcha_checked"
+            name="captcha_checked"
+            type="checkbox"
+            value="true"
+            class="h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-600/30 dark:border-white/20 dark:bg-slate-950 dark:focus:ring-brand-500/30"
+            {{ if .Captcha.Open }}checked{{ end }}
+        >
+        <span>Não sou um robô</span>
+    </label>
+    <input type="hidden" name="captcha_id" value="{{ .Captcha.ID }}">
+    <div data-captcha-panel {{ if .Captcha.Open }}{{ else }}hidden{{ end }} class="{{ if .Captcha.Open }}{{ else }}hidden {{ end }}flex flex-col gap-3 rounded-xl border border-slate-200/90 bg-slate-50/80 p-3 dark:border-white/10 dark:bg-slate-950/50 sm:flex-row sm:items-center">
+        <img
+            src="{{ .Captcha.Content }}"
+            alt="Código de verificação"
+            class="h-[50px] w-[100px] shrink-0 rounded-lg border border-slate-200/90 bg-white object-contain dark:border-white/10"
+        >
+        <input
+            id="captcha_answer"
+            name="captcha_answer"
+            type="text"
+            required
+            inputmode="numeric"
+            autocomplete="off"
+            placeholder="Digite os números"
+            {{ if .Captcha.Open }}{{ else }}disabled{{ end }}
+            class="qn-auth-input min-w-0 flex-1 rounded-xl border border-slate-200/90 bg-white px-3 py-2.5 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-brand-600/50 focus:outline-none focus:ring-2 focus:ring-brand-600/25 disabled:cursor-not-allowed disabled:opacity-60 dark:border-white/10 dark:bg-slate-950/80 dark:text-white dark:placeholder:text-slate-500 dark:focus:border-brand-500/40 dark:focus:ring-brand-500/25"
+        >
+    </div>
+    {{ with index .Form.FieldErrors "captcha" }}
+        <p class="text-sm font-medium text-red-600 dark:text-red-300">{{ . }}</p>
+    {{ end }}
+</div>
+{{ end }}
+{{ end }}
+
+{{ define "auth-shell-end" }}
+            </div>
+        </div>
+    </div>
+    </div>
+    {{ template "site-footer" "qn-auth-footer" }}
+</div>
+{{ end }}

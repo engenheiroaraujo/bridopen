@@ -1,0 +1,8 @@
+# Substitua pelos dominios reais do seu deploy antes de subir em producao.
+seu-dominio.com.br {
+    reverse_proxy server:5000
+}
+
+www.seu-dominio.com.br {
+    redir https://seu-dominio.com.br{uri} permanent
+}
