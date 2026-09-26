@@ -773,7 +773,7 @@ html.dark .qn-note-reader__tags a {
 
 .qn-note-reader h1 {
   margin: 0;
-  max-width: 18ch;
+  overflow-wrap: anywhere;
   color: rgb(32 40 34);
   font-size: clamp(1.6rem, 3.7vw, 3rem);
   font-weight: 780;
